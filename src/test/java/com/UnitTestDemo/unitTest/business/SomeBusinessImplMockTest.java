@@ -40,7 +40,7 @@ public class SomeBusinessImplMockTest {
         when(someDataMock.retrieveAllData()).thenReturn(new int[] { });
         business.setSomeDataServiceOne(someDataMock);
         int actual =  business.calculateSumUsingDataService();
-        int expected = 0;
+        int expected = 5;
         assertThat(actual).isEqualTo(expected);
     }
 

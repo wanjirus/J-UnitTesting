@@ -30,6 +30,8 @@ public class SomeBusinessImpl {
         for(int value:data){
             sum+=value;
         }
+        //assuming the method doesnt return sum;
+        //someDataService.storeSum(sum);
         return sum;
     }
  }
