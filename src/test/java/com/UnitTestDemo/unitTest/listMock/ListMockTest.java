@@ -54,6 +54,8 @@ public class ListMockTest {
         //check if any parameter is usable(int) is called once, by default requires one call
 //        verify(mock).get(anyInt());
 
+        //check whether a method is never called
+        verify(mock, never()).get(3);
 
         //verify method is called  once
 
@@ -67,7 +69,7 @@ public class ListMockTest {
         verify(mock, atLeast(2)).get(anyInt());
 
         //        verify a method is called atmost a number of times
-        verify(mock, atLeast(2)).get(anyInt());
+        verify(mock, atMost(1)).get(anyInt());
         verify(mock,never()).get(2);
 
 
@@ -76,10 +78,35 @@ public class ListMockTest {
     @Test
     public void argumentCapturing(){
         //assuming system under test
+//        has a method that saves or such as
         mock.add("someString");
+
         //verification
         ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
         verify(mock).add(captor.capture());
         assertEquals("someString", captor.getValue());
+    }
+
+    //Multiple argument capturing
+    @Test
+    public void multipleArgumentCapturing(){
+        //assuming system under test
+//        has a method that saves or such as
+        //given
+        mock.add("someString1");
+        mock.add("someString2");
+
+        //verification
+        ArgumentCaptor<String> captor = ArgumentCaptor.forClass(String.class);
+
+        //when
+       //check if mock is called two times
+        verify(mock, times(2)).add(captor.capture());
+        List<String> allValues = captor.getAllValues();
+
+        //then
+        assertEquals("someString1", allValues.get(0));
+        assertEquals("someString2", allValues.get(1));
+
     }
 }
